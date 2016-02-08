@@ -1,0 +1,38 @@
+<div class="row">
+  <% @links.each do |link| %>
+    <div class="col-md-12">
+      <div class="well">
+        <div class="row">
+          <div class="col-md-1 center-it">
+            <p>
+              <%= link_to upvote_path(id: link.id) do %>
+                <i class="fa fa-thumbs-o-up"></i>
+              <% end %>
+            </p>
+            <p>
+              <%= link.score %>
+            </p>
+            <p>
+              <%= link_to downvote_path(id: link.id) do %>
+                <i class="fa fa-thumbs-o-down"></i>
+              <% end %>
+            </p>
+          </div>
+          <div class="col-md-3 center-it">
+            <p><%= image_tag link.user.avatar.url(:thumb) %></p>
+          </div>
+          <div class="col-md-8">
+            <h3><%= link_to link.name, link.link, target: "_blank" %></h3>
+            <p>
+              <%= link_to "Comments", link %>
+              &nbsp;&nbsp;
+              <% if current_user.id == link.user_id %>
+                <%= link_to 'Edit', edit_link_path(link) %> &nbsp;&nbsp; <%= link_to 'Destroy', link, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
